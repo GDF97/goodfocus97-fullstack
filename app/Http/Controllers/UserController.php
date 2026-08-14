@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -11,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+ 
     }
 
     /**
@@ -19,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('login');
     }
 
     /**
@@ -27,7 +30,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'email' => 'string|email|max:255|required',
+            'password' => 'string|max:255|required',
+        ]);
+
+        if(Auth::attempt($validate)){
+            return view('login', ['message' => 'Deu certo']);
+        }
+
+        
+        return view('login', ['message' => 'Dados inválidos, verifique os campos novamente']);
     }
 
     /**
