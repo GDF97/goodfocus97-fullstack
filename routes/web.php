@@ -15,11 +15,14 @@ Route::get('/', function(){
 });
 
 Route::get('/login', [AuthController::class, 'showLogin']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/publicar-foto', [DashboardController::class, 'publishPhoto'])->name('admin.publish');
+    Route::get('/admin/publicações', [DashboardController::class, 'gallery'])->name('admin.gallery');
+    Route::get('/admin/cameras', [CameraController::class, 'index'])->name('admin.cameras');
 });
 
 

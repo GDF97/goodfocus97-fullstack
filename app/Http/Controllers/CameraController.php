@@ -13,7 +13,7 @@ class CameraController extends Controller
     public function index()
     {
         $cameras = Camera::all();
-        return view('cameras', ['cameras' => $cameras]);
+        return view('admin.cameras', ['cameras' => $cameras]);
     }
 
     /**

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard - Login</title>
 
+    <link rel="stylesheet" href="../../css/app.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
