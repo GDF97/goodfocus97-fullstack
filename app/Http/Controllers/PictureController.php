@@ -32,10 +32,11 @@ class PictureController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'user_id' => 'required|integer',
             'path' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
             'title' => 'required|string|max:30',
             'desc' => 'required|string',
-            'camera' => 'required|integer',
+            'camera' => 'required|integer'
         ]);
 
         $path = $request->file('path')->store('pictures', 'public');
@@ -45,7 +46,7 @@ class PictureController extends Controller
             'title' => $validated['title'],
             'desc' => $validated['desc'],
             'camera_id' => $validated['camera'],
-            'user_id' => "1",
+            'user_id' => $validated['user_id'],
         ]);
 
         return redirect('/')->with("success", "A foto foi publicada!");
