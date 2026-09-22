@@ -7,21 +7,21 @@
             <p class="text-xl text-muted"> Aqui está o resumo do seu conteúdo.</p>
         </span>
         <div class="w-full flex gap-8">
-            <div class="w-60 p-8 border border-muted rounded-lg flex gap-4">
+            <div class="w-60 p-8 border border-muted rounded-lg flex gap-4 bg-white">
                 <x-heroicon-o-camera class="w-6 h-6"/>
                 <span>
                     <p class="text-xl">Total de fotos</p>
                     <h2 class="text-2xl">{{$picturesCount}}</h2>
                 </span>
             </div>
-            <div class="w-60 p-8 border border-muted rounded-lg flex gap-4">
+            <div class="w-60 p-8 border border-muted rounded-lg flex gap-4 bg-white">
                 <x-heroicon-o-camera class="w-6 h-6"/>
                 <span>
                     <p class="text-xl">Cameras</p>
                     <h2 class="text-2xl">{{$camerasCount}}</h2>
                 </span>
             </div>
-            <div class="w-60 p-8 border border-muted rounded-lg flex gap-4">
+            <div class="w-60 p-8 border border-muted rounded-lg flex gap-4 bg-white">
                 <x-heroicon-o-camera class="w-6 h-6"/>
                 <span>
                     <p class="text-xl">Categorias</p>
