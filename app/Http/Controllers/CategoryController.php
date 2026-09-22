@@ -13,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category');
+        $userId = Auth::id();
+        $categories = Category::all()->where("user_id", $userId);
+        return view('admin.category', ['categories' => $categories, 'isEdit' => false]);
     }
 
     /**
@@ -38,6 +40,9 @@ class CategoryController extends Controller
             "name" => $validate['category'],
             "user_id" => $userId
         ]);
+
+        return redirect('/admin/categorias')->with('success', 'Câmera cadastrada com sucesso');
+
     }
 
     /**
@@ -51,9 +56,13 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(int $category_id)
     {
-        //
+        $userId = Auth::id();
+        $categories = Category::all()->where("user_id", $userId);
+        $categoryToEdit = Category::find($category_id);
+
+        return view('admin.category', ['categories' => $categories, 'isEdit' => true, 'categoryToEdit' => $categoryToEdit]);
     }
 
     /**
@@ -61,7 +70,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'category' => 'string|required|max:255',
+            'categoryId' => 'int|required'
+        ]);
+        $category->where('id', $validated['categoryId'])->update([
+            "name" => $validated['category']
+        ]);
+        $userId = Auth::id();
+        $categories = Category::all()->where("user_id", $userId);
+        return view('admin.category', ['categories' => $categories, 'isEdit' => false]);
     }
 
     /**

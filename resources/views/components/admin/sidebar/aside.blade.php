@@ -35,9 +35,9 @@
         </x-admin.sidebar.link>
 
         <x-admin.sidebar.link
-            href="{{ route('admin.category') }}"
+            href="{{ route('admin.category.index') }}"
             icon="heroicon-o-tag"
-            route="admin.category"
+            route="admin.category.*"
         >
             Categorias
         </x-admin.sidebar.link>
