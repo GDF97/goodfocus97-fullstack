@@ -27,20 +27,20 @@
         </x-admin.sidebar.link>
 
         <x-admin.sidebar.link
-            href="{{ route('admin.cameras') }}"
+            href="{{ route('admin.cameras.index') }}"
             icon="heroicon-o-camera"
-            route="admin.cameras"
+            route="admin.cameras.*"
         >
             Câmeras
         </x-admin.sidebar.link>
 
-        {{-- <x-admin.sidebar.link
-            href="{{ route('login') }}"
+        <x-admin.sidebar.link
+            href="{{ route('admin.category') }}"
             icon="heroicon-o-tag"
-            route="admin.products.*"
+            route="admin.category"
         >
             Categorias
-        </x-admin.sidebar.link> --}}
+        </x-admin.sidebar.link>
 
     </nav>
 

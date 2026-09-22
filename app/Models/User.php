@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Picture::class);
     }
+
+    public function cameras(): HasMany 
+    {
+        return $this->hasMany(Camera::class);
+    }
 }

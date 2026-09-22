@@ -24,4 +24,9 @@ class Picture extends Model
     {
         return $this->belongsTo(Camera::class);
     }
+
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'pictures_category');
+    }
 }

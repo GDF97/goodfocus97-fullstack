@@ -12,10 +12,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <main class="w-full h-screen flex flex-col py-2.5 px-4">
+    <main class="w-full h-screen flex flex-col py-2.5 px-4 bg-background">
         <header class="w-full flex justify-between items-center border-b border-muted pb-6">
             <h1 class="text-2xl">GoodFocus97</h1>
             <form action="/logout" method="POST" class="w-fit">
+                @csrf
                 <button type="submit" class="bg-red-500 w-50 p-2.5 rounded-lg cursor-pointer">Sair</button>
             </form>
         </header>

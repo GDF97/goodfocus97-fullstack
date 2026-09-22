@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Camera;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CameraController extends Controller
 {
@@ -12,8 +13,9 @@ class CameraController extends Controller
      */
     public function index()
     {
-        $cameras = Camera::all();
-        return view('admin.cameras', ['cameras' => $cameras]);
+        $userId = Auth::id();
+        $cameras = Camera::all()->where("user_id", $userId);
+        return view('admin.cameras', ['cameras' => $cameras, 'isEdit' => false]);
     }
 
     /**
@@ -32,12 +34,14 @@ class CameraController extends Controller
         $validated = $request->validate([
             'camera' => 'string|required'
         ]);
+        $userId = Auth::id();
 
         Camera::create([
-            'name' => $validated['camera']
+            'name' => $validated['camera'],
+            'user_id' => $userId
         ]);
 
-        return redirect('/cameras')->with('success', 'Câmera cadastrada com sucesso');
+        return redirect('/admin/cameras')->with('success', 'Câmera cadastrada com sucesso');
     }
 
     /**
@@ -51,9 +55,13 @@ class CameraController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Camera $camera)
+    public function edit(int $camera_id)
     {
-        //
+        $userId = Auth::id();
+        $cameras = Camera::all()->where("user_id", $userId);
+        $cameraToEdit = Camera::find($camera_id);
+
+        return view('admin.cameras', ['cameras' => $cameras, 'isEdit' => true, 'cameraToEdit' => $cameraToEdit]);
     }
 
     /**
@@ -61,7 +69,16 @@ class CameraController extends Controller
      */
     public function update(Request $request, Camera $camera)
     {
-        //
+        $validated = $request->validate([
+            'camera' => 'string|required|max:255',
+            'cameraId' => 'int|required'
+        ]);
+        $camera->where('id', $validated['cameraId'])->update([
+            "name" => $validated['camera']
+        ]);
+        $userId = Auth::id();
+        $cameras = Camera::all()->where("user_id", $userId);
+        return view('admin.cameras', ['cameras' => $cameras, 'isEdit' => false]);
     }
 
     /**
