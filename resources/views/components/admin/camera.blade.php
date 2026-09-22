@@ -9,11 +9,11 @@
                 <x-heroicon-o-pencil class="w-5 h-5" />
             </button>
         </a>
-        <form>
+        <a href="{{ route('admin.cameras.destroy', $cameraId) }}">
             <input type="number" value={{ $cameraId }} hidden>
             <button class="cursor-pointer">
                 <x-heroicon-o-trash class="w-5 h-5" />
             </button>
-        </form>
+        </a>
     </td>
 </tr>

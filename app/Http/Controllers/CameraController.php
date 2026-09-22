@@ -84,8 +84,9 @@ class CameraController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Camera $camera)
+    public function destroy(int $camera_id)
     {
-        //
+        Camera::destroy($camera_id);
+        return redirect('/admin/cameras')->with('success', 'Câmera cadastrada com sucesso');
     }
 }

@@ -41,7 +41,7 @@ class CategoryController extends Controller
             "user_id" => $userId
         ]);
 
-        return redirect('/admin/categorias')->with('success', 'Câmera cadastrada com sucesso');
+        return redirect('/admin/categorias')->with('success', 'Categoria cadastrada com sucesso');
 
     }
 
@@ -85,8 +85,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(int $category_id)
     {
-        
+        Category::destroy($category_id);
+        return redirect('/admin/categorias')->with('success', 'Categoria deletada com sucesso');
     }
 }

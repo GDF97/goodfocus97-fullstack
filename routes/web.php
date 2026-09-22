@@ -29,11 +29,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/cameras', [CameraController::class, 'store'])->name('admin.cameras.store');
     Route::get('/admin/cameras/{camera_id}/editar', [CameraController::class, 'edit'])->name('admin.cameras.edit');
     Route::put('/admin/cameras', [CameraController::class, 'update'])->name('admin.cameras.update');
+    Route::get('/admin/cameras/{camera_id}/deletar', [CameraController::class, 'destroy'])->name('admin.cameras.destroy');
+    
     
     Route::get('/admin/categorias', [CategoryController::class, 'index'])->name('admin.category.index');
     Route::post('/admin/categorias', [CategoryController::class, 'store'])->name('admin.category.store');
     Route::get('/admin/categorias/{category_id}/editar', [CategoryController::class, 'edit'])->name('admin.category.edit');
     Route::put('/admin/categorias', [CategoryController::class, 'update'])->name('admin.category.update');
+    Route::get('/admin/categorias/{category_id}/deletar', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+
 });
 
 
