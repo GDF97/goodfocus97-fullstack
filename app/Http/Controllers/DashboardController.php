@@ -33,11 +33,6 @@ class DashboardController extends Controller
             'pictures' => $pictures,
         ]);
     }
-    
-    public function publishPhoto()
-    {
-        return view('admin.publish');
-    }
 
     public function gallery()
     {

@@ -1,4 +1,4 @@
-<aside class="w-70 h-full border-r border-muted px-4 py-8 ">
+<aside class="min-w-70 min-h-screen border-r border-muted px-4 py-8 ">
 
     <nav class="flex flex-col gap-4">
 
@@ -19,9 +19,9 @@
         </x-admin.sidebar.link>
 
         <x-admin.sidebar.link
-            href="{{ route('admin.publish') }}"
+            href="{{ route('admin.picture.create') }}"
             icon="heroicon-o-photo"
-            route="admin.publish"
+            route="admin.picture.create"
         >
             Postar Foto
         </x-admin.sidebar.link>

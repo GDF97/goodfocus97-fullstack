@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Camera;
+use App\Models\Category;
 use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PictureController extends Controller
 {
@@ -22,8 +24,10 @@ class PictureController extends Controller
      */
     public function create()
     {
-        $cameras = Camera::all();
-        return view('create-picture', ['cameras' => $cameras]);
+        $cameras = Camera::where('user_id', Auth::id())->get(['id', 'name']);
+        $categories = Category::where('user_id', Auth::id())->get(['id', 'name']);
+
+        return view('admin.publish', ["categories" => $categories, "cameras" => $cameras]);
     }
 
     /**
@@ -32,24 +36,28 @@ class PictureController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|integer',
-            'path' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
             'title' => 'required|string|max:30',
             'desc' => 'required|string',
-            'camera' => 'required|integer'
+            'camera' => 'required|integer',
+            'category' => 'required|array',
+            'category.*' => 'integer',
         ]);
 
-        $path = $request->file('path')->store('pictures', 'public');
+        $path = $request->file('picture')->store('pictures', 'public');
 
-        Picture::create([
+        $picture = Picture::create([
             'path' => $path,
             'title' => $validated['title'],
             'desc' => $validated['desc'],
             'camera_id' => $validated['camera'],
-            'user_id' => $validated['user_id'],
+            'user_id' => Auth::id(),
         ]);
 
-        return redirect('/')->with("success", "A foto foi publicada!");
+        $picture->categories()->attach($validated['category']);
+
+        return redirect('/')
+            ->with('success', 'A foto foi publicada!');
     }
 
     /**

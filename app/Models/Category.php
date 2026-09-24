@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -17,8 +18,13 @@ class Category extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function pictures(): BelongsTo
+    public function pictures(): BelongsToMany
     {
-        return $this->belongsTo(Picture::class, 'picture_category');
+        return $this->belongsToMany(
+            Picture::class,
+            'picture_category',
+            'category_id',
+            'picture_id'
+        );
     }
 }

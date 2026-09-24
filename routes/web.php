@@ -22,7 +22,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
     
-    Route::get('/admin/publicar-foto', [DashboardController::class, 'publishPhoto'])->name('admin.publish');
+   
+    Route::get('/admin/publicar-foto', [PictureController::class, 'create'])->name('admin.picture.create');
+    Route::post('/admin/publicar-foto', [PictureController::class, 'store'])->name('admin.picture.store');
+    
     Route::get('/admin/publicações', [DashboardController::class, 'gallery'])->name('admin.gallery');
     
     Route::get('/admin/cameras', [CameraController::class, 'index'])->name('admin.cameras.index');
