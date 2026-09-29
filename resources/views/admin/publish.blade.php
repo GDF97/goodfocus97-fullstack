@@ -7,7 +7,7 @@
             <h1 class="text-3xl mb-2.5">Publicar nova foto </h1>
             <p class="text-xl text-muted"> Compartilhe um novo momento com sua galeria.</p>
         </span>
-        <div class="w-full flex items-start gap-8">
+        <div class="max-w-275 w-full flex items-start gap-8">
             <form action="/admin/publicar-foto" method="POST" enctype="multipart/form-data" class="w-full flex flex-col gap-6">
                 @csrf
                 <div class="relative flex min-h-50 w-full flex-col gap-1 items-center justify-center border-2 border-dashed border-muted p-4">
@@ -44,7 +44,7 @@
                 </div>
                 <div>
                     <p>Titulo</p>
-                    <input type="text" name="title" placeholder="Escreva seu titulo" class="mt-2.5 w-full p-4 border border-muted rounded-xl outline-0 focus:outline-2 focus:outline-primary text-sm" required>
+                    <input type="text" name="title" id="title" placeholder="Escreva seu titulo" class="mt-2.5 w-full p-4 border border-muted rounded-xl outline-0 focus:outline-2 focus:outline-primary text-sm" required maxlength="50">
                 </div>
                 <div>
                     <p>Categorias</p>
@@ -99,20 +99,67 @@
                     <button type="submit" class="w-50 cursor-pointer border border-muted  text-muted p-2.5 rounded-lg font-light text-lg">Descartar</button>
                 </div>
             </form>
-            <div class="w-85"></div>
+            <div class="w-100 border border-muted p-4 flex flex-col gap-4">
+                <h1 class="text-xl">Prévia</h1>
+                <img src="" alt="Prévia da imagem" id="preview" class="w-full h-55 bg-muted object-cover">
+                <h3 id="previewTitle">Titulo</h3>
+                <div id="previewCategories" class="w-full flex flex-wrap gap-2.5">Categorias</div>
+            </div>
         </div>
     </article>
     <script>
-        const input = document.getElementById('picture');
-        const fileName = document.getElementById('file-name');
+        const inputImage = document.getElementById('picture');
+        const inputTitle = document.getElementById('title');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewCategories = document.getElementById('previewCategories');
+        const categories = document.querySelectorAll('input[name="category[]"]');
 
-        input.addEventListener('change', function () {
+        let categoriesSelected = [];
+
+        const fileName = document.getElementById('file-name');
+        const preview = document.getElementById('preview');
+
+        inputTitle.addEventListener('input', function () {
+            if(inputTitle.value.trim() === ""){
+                previewTitle.textContent = "Titulo"
+            } else {
+                previewTitle.textContent = inputTitle.value
+            }
+        })
+
+        inputImage.addEventListener('change', function () {
             if (this.files.length > 0) {
-                fileName.textContent = this.files[0].name;
+                const file = this.files[0];
+
+                fileName.textContent = file.name;
+                preview.src = URL.createObjectURL(file);
+                preview.classList.remove('hidden');
             } else {
                 fileName.textContent = 'Nenhum arquivo selecionado';
+                preview.classList.add('hidden');
             }
         });
+
+        categories.forEach(category => {
+            category.addEventListener('change', function () {
+                previewCategories.textContent = ""
+
+                categoriesSelected = Array.from(
+                    document.querySelectorAll('input[name="category[]"]:checked')
+                ).map(checkbox => checkbox.id.slice(0, -1));
+
+                if(categoriesSelected.length == 0){
+                    previewCategories.innerHTML = "Categorias selecionadas"
+                    return;
+                }
+
+                categoriesSelected.forEach(element => {
+                    previewCategories.innerHTML += `<span>#${element} </span>`;
+                });
+            });
+        });
+
+
     </script>
 </x-layout.admin>
 

@@ -7,7 +7,7 @@
             <p class="text-xl text-muted"> Organize suas fotos por categoria.</p>
         </span>
         <div class="w-full flex gap-8">
-            <table class="flex w-fit h-fit gap-4 border border-muted rounded-2xl overflow-hidden">
+            <table class="flex w-fit h-fit gap-4 border border-muted rounded-sm overflow-hidden">
                 <tr class="text-left border-b border-muted">
                     <th class="p-2.5">Nome</th>
                     <th class="p-2.5">Ações</th>
@@ -26,7 +26,7 @@
                     />
                 @endif
             </table>
-            <form action="/admin/categorias" method="POST" class="flex flex-col gap-6 border border-muted rounded-sm p-4">
+            <form action="/admin/categorias" method="POST" class="flex h-fit flex-col gap-6 border border-muted rounded-sm p-4">
                 @csrf
                 @if (isset($categoryToEdit) && isset($isEdit) && $isEdit)
                     @method("PUT")
