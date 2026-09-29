@@ -25,6 +25,9 @@ Route::middleware('auth')->group(function () {
    
     Route::get('/admin/publicar-foto', [PictureController::class, 'create'])->name('admin.picture.create');
     Route::post('/admin/publicar-foto', [PictureController::class, 'store'])->name('admin.picture.store');
+    Route::get('/admin/foto/{picture_id}/editar', [PictureController::class, 'edit'])->name('admin.picture.edit');
+    Route::put('/admin/foto', [PictureController::class, 'update'])->name('admin.picture.update');
+    Route::get('/admin/foto/{picture_id}/deletar', [PictureController::class, 'destroy'])->name('admin.picture.destroy');
     
     Route::get('/admin/publicações', [DashboardController::class, 'gallery'])->name('admin.gallery');
     

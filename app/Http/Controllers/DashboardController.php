@@ -36,6 +36,14 @@ class DashboardController extends Controller
 
     public function gallery()
     {
-        return view('admin.gallery');
+        $pictures = Picture::where('user_id', Auth::id())->get([
+            'id',
+            'path',
+            'title',
+            'user_id',
+            'created_at'
+        ]);
+
+        return view('admin.gallery', ['pictures' => $pictures]);
     }
 }
