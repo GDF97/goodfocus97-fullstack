@@ -8,6 +8,8 @@
         <a href="{{ route('admin.picture.edit', $picture->id) }}">
             <x-heroicon-o-pencil class="w-5 h-5" />
         </a>
-        <x-heroicon-o-trash class="w-5 h-5" />
+        <a href="{{ route('admin.picture.destroy', $picture->id) }}">
+            <x-heroicon-o-trash class="w-5 h-5" />
+        </a>
     </div>
 </div>

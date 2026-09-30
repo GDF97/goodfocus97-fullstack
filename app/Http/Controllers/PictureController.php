@@ -119,8 +119,11 @@ class PictureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $picture_id)
     {
-        //
+        Picture::destroy($picture_id);
+        return redirect()
+            ->route('admin.gallery')
+            ->with('success', 'Foto excluida com sucesso');
     }
 }
