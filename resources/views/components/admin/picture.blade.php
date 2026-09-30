@@ -5,7 +5,9 @@
     <h3 class="text-xl text-black">{{ $picture->title }}</h3>
     <h4 class="text-muted text-sm">{{ $picture->created_at->format('d/m/Y') }}</h4>
     <div class="flex gap-4">
-        <x-heroicon-o-pencil class="w-5 h-5" />
+        <a href="{{ route('admin.picture.edit', $picture->id) }}">
+            <x-heroicon-o-pencil class="w-5 h-5" />
+        </a>
         <x-heroicon-o-trash class="w-5 h-5" />
     </div>
 </div>

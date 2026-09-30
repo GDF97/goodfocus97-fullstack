@@ -27,7 +27,7 @@ class PictureController extends Controller
         $cameras = Camera::where('user_id', Auth::id())->get(['id', 'name']);
         $categories = Category::where('user_id', Auth::id())->get(['id', 'name']);
 
-        return view('admin.publish', ["categories" => $categories, "cameras" => $cameras]);
+        return view('admin.publish', ["categories" => $categories, "cameras" => $cameras, "isEdit" => false]);
     }
 
     /**
@@ -56,7 +56,7 @@ class PictureController extends Controller
 
         $picture->categories()->attach($validated['category']);
 
-        return redirect('/')
+        return redirect('/admin/publicações')
             ->with('success', 'A foto foi publicada!');
     }
 
@@ -71,17 +71,49 @@ class PictureController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $picture_id)
     {
-        //
+        $cameras = Camera::where('user_id', Auth::id())->get(['id', 'name']);
+        $categories = Category::where('user_id', Auth::id())->get(['id', 'name']);
+        $pictureToEdit = Picture::find($picture_id);
+
+        return view('admin.publish', ['isEdit' => true, 'pictureToEdit' => $pictureToEdit, "categories" => $categories, "cameras" => $cameras]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'pictureId' => 'required|integer|exists:pictures,id',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'title' => 'required|string|max:30',
+            'desc' => 'required|string',
+            'camera' => 'required|integer',
+            'category' => 'required|array',
+            'category.*' => 'integer',
+        ]);
+
+        $picture = Picture::findOrFail($validated['pictureId']);
+
+        $data = [
+            'title' => $validated['title'],
+            'desc' => $validated['desc'],
+            'camera_id' => $validated['camera'],
+        ];
+
+        if ($request->hasFile('picture')) {
+            $data['path'] = $request->file('picture')->store('pictures', 'public');
+        }
+
+        $picture->update($data);
+
+        $picture->categories()->sync($validated['category']);
+
+        return redirect()
+            ->route('admin.gallery')
+            ->with('success', 'Foto atualizada com sucesso');
     }
 
     /**

@@ -21,7 +21,7 @@
         <x-admin.sidebar.link
             href="{{ route('admin.picture.create') }}"
             icon="heroicon-o-photo"
-            route="admin.picture.create"
+            route="admin.picture.*"
         >
             Postar Foto
         </x-admin.sidebar.link>
