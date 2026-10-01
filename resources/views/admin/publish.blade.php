@@ -1,4 +1,9 @@
-@section('title', 'Publicar foto')
+
+@if (isset($isEdit) && $isEdit)
+    @section('title', 'Atualizar foto')
+@else
+    @section('title', 'Publicar foto')
+@endif
 
 
 <x-layout.admin>
@@ -105,7 +110,7 @@
                          @if ($cameras->isNotEmpty())
                             @foreach ($cameras as $camera)
                                 @if (isset($pictureToEdit) && $pictureToEdit->camera_id == $camera->id)
-                                    <option value="{{ $camera->id }}">
+                                    <option selected value="{{ $camera->id }}">
                                         {{ $camera->name }}
                                     </option>
                                 @else
@@ -134,7 +139,7 @@
                     <button type="submit" class="w-50 cursor-pointer border border-muted  text-muted p-2.5 rounded-lg font-light text-lg">Descartar</button>
                 </div>
             </form>
-            <div class="w-100 border border-muted p-4 flex flex-col gap-4">
+            <div class="w-100 border border-muted p-4 flex flex-col gap-4 rounded-lg">
                 <h1 class="text-xl">
                     Prévia
                 </h1>
