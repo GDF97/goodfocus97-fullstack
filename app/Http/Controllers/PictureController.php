@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -105,6 +106,7 @@ class PictureController extends Controller
 
         if ($request->hasFile('picture')) {
             $data['path'] = $request->file('picture')->store('pictures', 'public');
+            Storage::disk('public')->delete($picture->path);
         }
 
         $picture->update($data);

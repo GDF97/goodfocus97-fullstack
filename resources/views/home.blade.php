@@ -1,13 +1,20 @@
-<h1>
-    Hello World!
-</h1>
+@section("title", 'Home')
 
-@auth
-    <form method="POST" action="/logout">
-        @csrf
+<x-layout.public>
 
-        <button type="submit">
-            Sair
-        </button>
-    </form>
-@endauth
+    <h1>
+    
+        Hello World!
+    </h1>
+    
+    @auth
+        <form method="POST" action="/logout">
+            @csrf
+    
+            <button type="submit">
+                Sair
+            </button>
+        </form>
+    @endauth    
+</x-layout.public>
+
