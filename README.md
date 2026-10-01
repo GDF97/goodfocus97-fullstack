@@ -1,59 +1,292 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📷 GooDFocus97
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Painel administrativo desenvolvido para o gerenciamento e publicação de fotografias no site **GooDFocus97**.
 
-## About Laravel
+O projeto tem como objetivo fornecer uma interface para administrar as fotos que serão disponibilizadas no site, permitindo organizar informações como título, descrição, câmera e categorias.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🖥️ Telas desenvolvidas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para acessar as telas desenvolvidas até o momento, veja o arquivo [**TELAS DESENVOLVIDAS**](https://github.com/GDF97/goodfocus97-fullstack/blob/main/design.md).
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🚀 Tecnologias
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+O projeto foi desenvolvido utilizando:
 
-## Laravel Sponsors
+- **PHP**
+- **Laravel**
+- **MySQL**
+- **Tailwind CSS**
+- **Blade**
+- **JavaScript**
+- **HTML5**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🎯 Objetivo
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+O **GooDFocus97** funciona como o painel de administração do site, centralizando o gerenciamento das fotografias.
 
-## Contributing
+Entre as principais funcionalidades estão:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- 📸 Publicação de fotografias
+- ✏️ Edição de fotografias
+- 🗑️ Exclusão de fotografias
+- 🏷️ Organização por categorias
+- 📷 Associação de fotografias com câmeras
+- 📝 Definição de título e descrição
+- 🖼️ Upload e gerenciamento de imagens
+- 👤 Associação das publicações ao usuário responsável
+- 🔐 Área administrativa protegida por autenticação
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📂 Estrutura do projeto
 
-## Security Vulnerabilities
+A aplicação segue a estrutura padrão de um projeto Laravel, utilizando seus principais recursos para separar responsabilidades.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```text
+GooDFocus97/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   ├── Models/
+│   └── Providers/
+│
+├── bootstrap/
+│
+├── config/
+│
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   └── seeders/
+│
+├── public/
+│   ├── build/
+│   │   └── assets/
+│   └── storage → storage/app/public
+│
+├── resources/
+│   ├── css/
+│   ├── js/
+│   └── views/
+│       ├── admin/
+│       ├── components/
+│       │   ├── admin/
+│       │   │   └── sidebar/
+│       │   └── layout/
+│       └── public/
+│
+├── routes/
+│
+├── storage/
+│   └── app/
+│       ├── private/
+│       └── public/
+│           └── pictures/
+│
+├── tests/
+│   ├── Feature/
+│   └── Unit/
+│
+├── .env.example
+├── artisan
+├── composer.json
+├── package.json
+└── README.md
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ⚙️ Instalação
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/GooDFocus97.git
+```
+
+Entre na pasta do projeto:
+
+```bash
+cd GooDFocus97
+```
+
+### 2. Instale as dependências do Laravel
+
+```bash
+composer install
+```
+
+### 3. Instale as dependências do frontend
+
+```bash
+npm install
+```
+
+### 4. Configure o ambiente
+
+Crie o arquivo `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Gere a chave da aplicação:
+
+```bash
+php artisan key:generate
+```
+
+### 5. Configure o banco de dados
+
+No arquivo `.env`, configure as informações do MySQL:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=goodfocus97
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Depois execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+Caso o projeto possua seeders:
+
+```bash
+php artisan db:seed
+```
+
+### 6. Configure o armazenamento das imagens
+
+Crie o link simbólico para o armazenamento público:
+
+```bash
+php artisan storage:link
+```
+
+### 7. Execute o projeto
+
+Inicie o servidor Laravel:
+
+```bash
+php artisan serve
+```
+
+Em outro terminal, execute o Vite:
+
+```bash
+npm run dev
+```
+
+O projeto estará disponível em:
+
+```text
+http://localhost:8000
+```
+
+---
+
+## 🖼️ Gerenciamento de fotografias
+
+O painel permite cadastrar fotografias informando dados relacionados à publicação.
+
+Exemplo de informações associadas a uma fotografia:
+
+```text
+Fotografia
+├── Imagem
+├── Título
+├── Descrição
+├── Câmera
+├── Categorias
+└── Usuário responsável
+```
+
+As categorias permitem que uma mesma fotografia seja relacionada a diferentes classificações.
+
+---
+
+## 🗃️ Banco de dados
+
+O sistema utiliza **MySQL** para armazenar os dados da aplicação.
+
+Entre as principais entidades estão:
+
+- `users`
+- `pictures`
+- `categories`
+- `cameras`
+- `picture_category`
+
+A tabela `picture_category` é utilizada para representar o relacionamento entre fotografias e categorias.
+
+```text
+Picture
+   │
+   ├── belongsTo → User
+   ├── belongsTo → Camera
+   │
+   └── belongsToMany → Category
+                         │
+                         └── picture_category
+```
+
+---
+
+## 🎨 Interface
+
+A interface administrativa foi construída utilizando **Tailwind CSS**, buscando uma experiência simples e responsiva para gerenciamento do conteúdo.
+
+O painel possui componentes para:
+
+- Navegação administrativa
+- Listagem de fotografias
+- Formulários
+- Upload de imagens
+- Seleção de categorias
+- Pré-visualização de fotografias
+- Gerenciamento de conteúdo
+
+---
+
+## 🔐 Autenticação
+
+O acesso ao painel administrativo é destinado a usuários autenticados.
+
+As rotas administrativas são protegidas para impedir que usuários não autenticados tenham acesso às funcionalidades de gerenciamento.
+
+---
+
+## 📌 Status
+
+🚧 **Em desenvolvimento**
+
+O projeto ainda está sendo desenvolvido e novas funcionalidades serão adicionadas conforme o desenvolvimento do site **GooDFocus97** avança.
+
+#### ✅ TODO
+
+- Admin
+    - [ ] Error handling
+    - [ ] Toast notification
+    - [ ] Modal for delete
+- Public:
+    - [ ] Landing Page
+    - [ ] One Picture
+    - [ ] Gallery
+
+---
+
+## 📄 Licença
+
+Este projeto é desenvolvido para fins de estudo e desenvolvimento do site **GooDFocus97**.
