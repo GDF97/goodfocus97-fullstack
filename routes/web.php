@@ -5,15 +5,15 @@ use App\Http\Controllers\CameraController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PictureController;
+use App\Http\Controllers\PicutreControllerPublic;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function(){
-    return view('home');
-});
+Route::get('/', [PicutreControllerPublic::class, "index"]);
+Route::get('/galeria', [PicutreControllerPublic::class, "showGallery"])->name('public.gallery');
 
 Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
