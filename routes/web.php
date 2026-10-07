@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PicutreControllerPublic::class, "index"]);
 Route::get('/galeria', [PicutreControllerPublic::class, "showGallery"])->name('public.gallery');
+Route::get('/foto/{picture_id}', [PicutreControllerPublic::class, 'showOnePicture'])->name('public.picture');
 
 Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');

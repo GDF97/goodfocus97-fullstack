@@ -1,0 +1,1 @@
+{{-- Componente utilizado para uma unica foto quando o usuário clicar na foto desejada --}}

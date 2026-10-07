@@ -22,13 +22,17 @@ class PicutreControllerPublic extends Controller
     /**
      * Display the specified resource.
      */
-    public function showOnePicture(Picture $picture)
+    public function showOnePicture(Picture $picture, int $picture_id)
     {
-        return view("public.picture");
+        $showPicture = $picture->find($picture_id);
+        $latestPictures = Picture::latest()->take(10)->where('user_id', 1)->get();
+        return view("public.picture", ['picture' => $showPicture, 'pictures' => $latestPictures]);
     }
 
     public function showGallery(Picture $picture)
     {
-        return view("public.gallery");
+        $allPictures = $picture->get("*")->where('user_id', 1);
+
+        return view("public.gallery", ["pictures" => $allPictures]);
     }
 }

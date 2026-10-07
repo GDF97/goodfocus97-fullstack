@@ -1,0 +1,1 @@
+{{-- Componente utilizado para apresentar as fotos na /galeria --}}

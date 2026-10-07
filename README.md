@@ -276,14 +276,19 @@ O projeto ainda está sendo desenvolvido e novas funcionalidades serão adiciona
 
 #### ✅ TODO
 
+- Geral
+    - [ ] Animações
+
 - Admin
     - [ ] Error handling
     - [ ] Toast notification
     - [ ] Modal for delete
 - Public:
-    - [ ] Landing Page
-    - [ ] One Picture
-    - [ ] Gallery
+    - [x] Landing Page
+    - [x] One Picture
+    - [x] Gallery
+    - [x] Responsividade
+    - [ ] Finalizar componentização
 
 ---
 

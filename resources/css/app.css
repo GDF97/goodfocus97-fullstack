@@ -20,8 +20,29 @@
     --color-terceary: #deedd1;
     --color-muted: #7f8c81;
     --color-background: #eff9e7;
+    --breakpoint-xs: 30rem;
 }
 
 * {
     /* outline: 1px solid red; */
+}
+
+@import "tailwindcss";
+
+.gallerySwiper {
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.gallerySwiper .swiper-slide {
+    width: 100%;
+}
+
+.gallerySwiper .swiper-button-prev,
+.gallerySwiper .swiper-button-next {
+    color: white;
+}
+
+.gallerySwiper .swiper-pagination-bullet-active {
+    background: white;
 }
