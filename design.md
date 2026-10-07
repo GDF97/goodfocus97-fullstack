@@ -1,5 +1,17 @@
 # 🖥️ Telas que foram desenvolvidas
 
+##### Landing Page
+
+<img src="/design/lp.png">
+
+##### Galeria
+
+<img src="/design/gallery.png">
+
+##### One Picture
+
+<img src="/design/onepicture.png">
+
 ##### Tela de login
 
 <img src="/design/login.png">
