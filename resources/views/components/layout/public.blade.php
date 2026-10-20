@@ -8,10 +8,12 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+    {{-- <div id="route-flash" aria-hidden="true"></div> --}}
     <main class="w-full min-h-screen flex flex-col p-6 gap-8 bg-background relative">
         <header class="w-full inset-0 sticky z-10 bg-background py-2">
             <div class="w-full flex items-center justify-between flex-col sm:flex-row sm:gap-0 gap-4">
