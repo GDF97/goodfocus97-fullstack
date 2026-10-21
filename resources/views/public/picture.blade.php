@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @if (!isset($picture))
     <x-layout.public>
         <span class="w-full h-0.5 bg-stone-500"></span>
@@ -7,6 +8,9 @@
         <h1 class="text-3xl">Foto não encontrada</h1>
     </x-layout.public>
 @endif
+=======
+@section('title', $picture->title)
+>>>>>>> 96b960577db799442a514bf945d1e6703ab80853
 
 @if (isset($picture))
     @section('title', $picture->title)

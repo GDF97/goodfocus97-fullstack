@@ -181,7 +181,10 @@ function initHomeAnimations() {
 
 function initGalleryAnimations() {
     const gallery = document.querySelector("[data-gallery]");
+<<<<<<< HEAD
     // const gallerylength = document.querySelector['[data-gallery-item]']
+=======
+>>>>>>> 96b960577db799442a514bf945d1e6703ab80853
 
     if (!gallery) return;
 
@@ -213,7 +216,11 @@ function initGalleryAnimations() {
                 y: 0,
                 opacity: 1,
                 duration: 0.7,
+<<<<<<< HEAD
                 delay: (index % cards.length) * 0.1,
+=======
+                delay: (index % 4) * 0.1,
+>>>>>>> 96b960577db799442a514bf945d1e6703ab80853
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: card,
@@ -369,12 +376,15 @@ if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initHomeAnimations, {
         once: true,
     });
+<<<<<<< HEAD
     document.addEventListener("DOMContentLoaded", initGalleryAnimations, {
         once: true,
     });
     document.addEventListener("DOMContentLoaded", initPictureAnimations, {
         once: true,
     });
+=======
+>>>>>>> 96b960577db799442a514bf945d1e6703ab80853
 } else {
     initHomeAnimations();
     initGalleryAnimations();
