@@ -376,15 +376,12 @@ if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initHomeAnimations, {
         once: true,
     });
-<<<<<<< HEAD
     document.addEventListener("DOMContentLoaded", initGalleryAnimations, {
         once: true,
     });
     document.addEventListener("DOMContentLoaded", initPictureAnimations, {
         once: true,
     });
-=======
->>>>>>> 96b960577db799442a514bf945d1e6703ab80853
 } else {
     initHomeAnimations();
     initGalleryAnimations();
