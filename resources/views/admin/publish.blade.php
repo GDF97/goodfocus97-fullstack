@@ -25,7 +25,13 @@
                     @method("PUT")
                     <input type="number" value="{{ $pictureToEdit->id }}" hidden id="pictureId" name="pictureId">
                 @endif
-                <div class="relative flex min-h-50 w-full flex-col gap-1 items-center justify-center border-2 border-dashed border-muted p-4">
+                <div class="relative flex min-h-50 w-full flex-col gap-1 items-center justify-center border-2 border-dashed p-4
+                @error('picture')
+                    border-red-500
+                @else
+                    border-muted
+                @enderror
+                ">
                     <input
                         type="file"
                         id="picture"
@@ -59,6 +65,10 @@
                             Nenhum arquivo selecionado
                         @endif
                     </p>
+
+                    @error('picture')
+                       <p class="text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <p>Titulo</p>
@@ -67,13 +77,14 @@
                         name="title" 
                         id="title" 
                         placeholder="Escreva seu titulo" 
-                        class="mt-2.5 w-full p-4 border
+                        class="my-2.5 w-full p-4 border
                         border-muted rounded-xl 
                         outline-0 focus:outline-2
                         focus:outline-primary text-sm" 
-                        required maxlength="50" 
+                        required maxlength="30" 
                         value="{{ $pictureToEdit?->title ?? '' }}"
                         >
+                        <p class="w-full text-right text-muted text-sm" id="titleLengthTrack">0/30</p>
                 </div>
                 <div>
                     <p>Categorias</p>
@@ -101,6 +112,9 @@
                         @else
                             <h1>Nenhuma categoria cadastrada</h1>                            
                         @endif
+                        @error("category")
+                            <p class="text-red-500 text-sm">Nenhuma categoria foi selecionada!</p>
+                        @enderror
                     </div>
                 </div>
                 <div>
@@ -126,7 +140,8 @@
                 </div>
                 <div>
                     <p>Descrição</p>
-                    <textarea name="desc" id="desc" cols="30" rows="10" class="mt-2.5 w-full h-30 resize-none outline-1 outline-muted rounded-xl p-4" placeholder="Escreva a descrição da foto" required>@if (isset($pictureToEdit)){{ $pictureToEdit->desc }}@endif</textarea>
+                    <textarea maxlength="500" name="desc" id="desc" cols="30" rows="10" class="mt-2.5 w-full h-30 resize-none outline-1 outline-muted rounded-xl p-4" placeholder="Escreva a descrição da foto" required>@if (isset($pictureToEdit)){{ $pictureToEdit->desc }}@endif</textarea>
+                    <p class="w-full text-right text-muted text-sm" id="descLengthTrack">0/500</p>
                 </div>
                 <div class="flex gap-4 items-center">
                     <button type="submit" class="w-50 cursor-pointer bg-primary p-2.5 rounded-lg text-white font-light text-lg">
@@ -139,7 +154,7 @@
                     <button type="submit" class="w-50 cursor-pointer border border-muted  text-muted p-2.5 rounded-lg font-light text-lg">Descartar</button>
                 </div>
             </form>
-            <div class="w-100 border border-muted p-4 flex flex-col gap-4 rounded-lg">
+            <div class="min-w-70 max-w-70 border border-muted p-4 flex flex-col gap-4 rounded-lg">
                 <h1 class="text-xl">
                     Prévia
                 </h1>
@@ -148,7 +163,7 @@
                 @else
                     <img src="" alt="Prévia da imagem" id="preview" class="w-full h-55 bg-muted object-cover">
                 @endif
-                <h3 id="previewTitle">
+                <h3 id="previewTitle" class="min-w-0 wrap-break-word">
                     @if (isset($pictureToEdit))
                         {{ $pictureToEdit->title }}
                     @else
@@ -173,9 +188,12 @@
         const previewTitle = document.getElementById('previewTitle');
         const previewCategories = document.getElementById('previewCategories');
         const categories = document.querySelectorAll('input[name="category[]"]');
+        const textareaDesc = document.getElementById('desc');
+        const descLengthTrack = document.getElementById('descLengthTrack');
+        const titleLengthTrack = document.getElementById('titleLengthTrack');
 
         let categoriesSelected = [];
-
+        
         const fileName = document.getElementById('file-name');
         const preview = document.getElementById('preview');
 
@@ -185,7 +203,14 @@
             } else {
                 previewTitle.textContent = inputTitle.value
             }
+            titleLengthTrack.textContent = `${inputTitle.value.length}/50`
         })
+
+        textareaDesc.addEventListener('input', function () {
+            descLengthTrack.textContent = `${textareaDesc.value.length}/500`
+        })
+
+
 
         inputImage.addEventListener('change', function () {
             if (this.files.length > 0) {
