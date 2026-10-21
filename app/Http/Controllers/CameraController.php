@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Camera;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CameraController extends Controller
 {
@@ -29,20 +31,44 @@ class CameraController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'camera' => 'string|required'
+            'camera' => 'required|string',
         ]);
+
         $userId = Auth::id();
 
-        Camera::create([
-            'name' => $validated['camera'],
-            'user_id' => $userId
-        ]);
+        $existingCamera = Camera::where('name', $validated['camera'])
+            ->where('user_id', $userId)
+            ->exists();
 
-        return redirect('/admin/cameras')->with('success', 'Câmera cadastrada com sucesso');
+        if ($existingCamera) {
+            return redirect()
+                ->route('admin.cameras.index')
+                ->with('warning', 'Essa câmera já está cadastrada.');
+        }
+
+        try {
+            Camera::create([
+                'name' => $validated['camera'],
+                'user_id' => $userId,
+            ]);
+        } catch (\Throwable $th) {
+            report($th);
+
+            return back()->with(
+                'error',
+                'Não foi possível cadastrar a câmera. Tente novamente.'
+            );
+        }
+
+        return redirect()
+            ->route('admin.cameras.index')
+            ->with('success', 'Câmera cadastrada com sucesso!');
     }
+
 
     /**
      * Display the specified resource.
@@ -67,26 +93,69 @@ class CameraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Camera $camera)
+    
+    
+    public function update(Request $request)
     {
         $validated = $request->validate([
-            'camera' => 'string|required|max:255',
-            'cameraId' => 'int|required'
+            'camera' => 'required|string|max:255',
+            'cameraId' => 'required|integer',
         ]);
-        $camera->where('id', $validated['cameraId'])->update([
-            "name" => $validated['camera']
-        ]);
-        $userId = Auth::id();
-        $cameras = Camera::all()->where("user_id", $userId);
-        return view('admin.cameras', ['cameras' => $cameras, 'isEdit' => false]);
+
+        $camera = Camera::where('user_id', Auth::id())
+            ->findOrFail($validated['cameraId']);
+
+        $existingCamera = Camera::where('user_id', Auth::id())
+            ->where('name', $validated['camera'])
+            ->where('id', '!=', $camera->id)
+            ->exists();
+
+        if ($existingCamera) {
+            return back()
+                ->withInput()
+                ->with('warning', 'Você já possui uma câmera com esse nome.');
+        }
+
+        try {
+            $camera->update([
+                'name' => $validated['camera'],
+            ]);
+        } catch (\Throwable $th) {
+            report($th);
+
+            return back()->with(
+                'error',
+                'Não foi possível atualizar a câmera. Tente novamente.'
+            );
+        }
+
+        return redirect()
+            ->route('admin.cameras.index')
+            ->with('success', 'Câmera atualizada com sucesso!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(int $camera_id)
     {
-        Camera::destroy($camera_id);
-        return redirect('/admin/cameras')->with('success', 'Câmera cadastrada com sucesso');
+        $camera = Camera::where('user_id', Auth::id())
+            ->findOrFail($camera_id);
+
+        try {
+            $camera->delete();
+        } catch (\Throwable $th) {
+            report($th);
+
+            return back()->with(
+                'error',
+                'Não foi possível excluir a câmera.'
+            );
+        }
+
+        return redirect('/admin/cameras')
+            ->with('success', 'Câmera deletada com sucesso!');
     }
 }

@@ -71,7 +71,12 @@
                     @enderror
                 </div>
                 <div>
-                    <p>Titulo</p>
+                    <p>
+                        Titulo
+                        @error("title")
+                            <span class="text-red-500 text-sm">Nenhum titulo foi colocado!</span>
+                        @enderror
+                    </p>
                     <input 
                         type="text" 
                         name="title" 
@@ -87,7 +92,12 @@
                         <p class="w-full text-right text-muted text-sm" id="titleLengthTrack">0/30</p>
                 </div>
                 <div>
-                    <p>Categorias</p>
+                    <p>
+                        Categorias
+                        @error("category")
+                            <span class="text-red-500 text-sm">Nenhuma categoria foi selecionada!</span>
+                        @enderror
+                    </p>
                     <div class="mt-2.5 w-full flex flex-wrap items-center gap-2.5">
                         @if ($categories->isNotEmpty())
                             @foreach ($categories as $category)
@@ -112,9 +122,7 @@
                         @else
                             <h1>Nenhuma categoria cadastrada</h1>                            
                         @endif
-                        @error("category")
-                            <p class="text-red-500 text-sm">Nenhuma categoria foi selecionada!</p>
-                        @enderror
+                        
                     </div>
                 </div>
                 <div>
@@ -139,7 +147,12 @@
                     </select>
                 </div>
                 <div>
-                    <p>Descrição</p>
+                    <p>
+                        Descrição
+                        @error('desc')
+                            <span class="text-red-500 text-sm">Nenhuma descrição foi colocada!</span>
+                        @enderror
+                    </p>
                     <textarea maxlength="500" name="desc" id="desc" cols="30" rows="10" class="mt-2.5 w-full h-30 resize-none outline-1 outline-muted rounded-xl p-4" placeholder="Escreva a descrição da foto" required>@if (isset($pictureToEdit)){{ $pictureToEdit->desc }}@endif</textarea>
                     <p class="w-full text-right text-muted text-sm" id="descLengthTrack">0/500</p>
                 </div>
@@ -203,7 +216,12 @@
             } else {
                 previewTitle.textContent = inputTitle.value
             }
-            titleLengthTrack.textContent = `${inputTitle.value.length}/50`
+            titleLengthTrack.textContent = `${inputTitle.value.length}/30`
+        })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            titleLengthTrack.textContent = `${inputTitle.value.length}/30`
+            descLengthTrack.textContent = `${textareaDesc.value.length}/500`
         })
 
         textareaDesc.addEventListener('input', function () {

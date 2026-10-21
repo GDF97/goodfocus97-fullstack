@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class CategoryController extends Controller
 {
@@ -36,13 +37,29 @@ class CategoryController extends Controller
             ]);
         $userId = Auth::id();
 
-        Category::create([
-            "name" => $validate['category'],
-            "user_id" => $userId
-        ]);
+        $existingCategory = Category::where('user_id', $userId)->where('name', $validate['category'])->exists();
 
-        return redirect('/admin/categorias')->with('success', 'Categoria cadastrada com sucesso');
+        if($existingCategory)
+        {
+            return redirect()->route('admin.category.index')->with('warning', 'Categoria já cadastrada!');
+        }
 
+        try {
+            Category::create([
+                'name' => $validate['category'],
+                'user_id' => $userId,
+            ]);
+        } catch (Throwable $th) {
+            report($th);
+
+            return redirect()
+                ->route('admin.category.index')
+                ->with('error', 'Não foi possível cadastrar categoria!');
+        }
+
+        return redirect()
+            ->route('admin.category.index')
+            ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
     /**
@@ -68,26 +85,66 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    
+    public function update(Request $request)
     {
         $validated = $request->validate([
-            'category' => 'string|required|max:255',
-            'categoryId' => 'int|required'
+            'category' => 'required|string|max:255',
+            'categoryId' => 'required|integer',
         ]);
-        $category->where('id', $validated['categoryId'])->update([
-            "name" => $validated['category']
-        ]);
-        $userId = Auth::id();
-        $categories = Category::all()->where("user_id", $userId);
-        return view('admin.category', ['categories' => $categories, 'isEdit' => false]);
+
+        $category = Category::where('user_id', Auth::id())
+            ->findOrFail($validated['categoryId']);
+
+        $existingCategory = Category::where('user_id', Auth::id())
+            ->where('name', $validated['category'])
+            ->where('id', '!=', $category->id)
+            ->exists();
+
+        if ($existingCategory) {
+            return back()
+                ->withInput()
+                ->with('warning', 'Você já possui uma categoria com esse nome.');
+        }
+
+        try {
+            $category->update([
+                'name' => $validated['category'],
+            ]);
+        } catch (\Throwable $th) {
+            report($th);
+
+            return back()->with(
+                'error',
+                'Não foi possível atualizar a categoria. Tente novamente.'
+            );
+        }
+
+        return redirect('/admin/categorias')
+            ->with('success', 'Categoria atualizada com sucesso!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(int $category_id)
     {
-        Category::destroy($category_id);
-        return redirect('/admin/categorias')->with('success', 'Categoria deletada com sucesso');
+        $category = Category::where('user_id', Auth::id())
+            ->findOrFail($category_id);
+
+        try {
+            $category->delete();
+        } catch (\Throwable $th) {
+            report($th);
+
+            return back()->with(
+                'error',
+                'Não foi possível excluir a categoria.'
+            );
+        }
+
+        return redirect('/admin/categorias')
+            ->with('success', 'Categoria deletada com sucesso!');
     }
 }

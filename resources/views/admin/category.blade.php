@@ -30,7 +30,7 @@
                 @csrf
                 @if (isset($categoryToEdit) && isset($isEdit) && $isEdit)
                     @method("PUT")
-                    <input type="number" name="categoryId" id="categoryId" value={{ $categoryToEdit->id }} hidden>
+                    <input type="number" name="categoryId" id="categoryId" value="{{ $categoryToEdit->id }}" hidden>
                 @endif
                 <h3 class="text-2xl">Cadastrar categoria</h3>
                 <label for="category" class="">
