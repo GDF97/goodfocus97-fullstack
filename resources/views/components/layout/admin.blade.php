@@ -24,6 +24,7 @@
         <section class="w-full h-full flex gap-8">
            <x-admin.sidebar.aside />
             {{ $slot }}
+            <x-admin.toast />
         </section>
     </main>
 </body>
