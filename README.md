@@ -277,11 +277,11 @@ O projeto ainda está sendo desenvolvido e novas funcionalidades serão adiciona
 #### ✅ TODO
 
 - Geral
-    - [ ] Animações
+    - [x] Animações
 
 - Admin
-    - [ ] Error handling
-    - [ ] Toast notification
+    - [x] Error handling
+    - [x] Toast notification
     - [ ] Modal for delete
 - Public:
     - [x] Landing Page
